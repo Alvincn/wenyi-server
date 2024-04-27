@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wenyi.wenyi.mapper.CommentMapper">
+
+    <resultMap id="BaseResultMap" type="com.wenyi.wenyi.entity.Comment">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="userId" column="user_id" jdbcType="INTEGER"/>
+            <result property="postId" column="post_id" jdbcType="INTEGER"/>
+            <result property="context" column="context" jdbcType="VARCHAR"/>
+            <result property="likeNumber" column="like_number" jdbcType="INTEGER"/>
+            <result property="dislikeNumber" column="dislike_number" jdbcType="INTEGER"/>
+            <result property="contextJson" column="context_json" jdbcType="VARCHAR"/>
+            <result property="commentTime" column="comment_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,user_id,post_id,
+        context,like_number,dislike_number,
+        context_json,comment_time
+    </sql>
+</mapper>

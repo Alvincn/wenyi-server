@@ -1,0 +1,14 @@
+spring:
+  jackson:
+    date-format: yyyy-MM-dd HH:mm
+    time-zone: GMT+8
+  application:
+    name: wenyi
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/wenyi
+    username: root
+    password: chen20020423
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
