@@ -128,6 +128,17 @@ public class PostsController {
         return Result.success(posts);
     }
 
+    /**
+     * 根据关键词找帖子
+     * @param keyword
+     * @return
+     */
+    @GetMapping("/getPostByKeyword")
+    public Result getPostByKeyword(String keyword) {
+        List<Posts> postsList = postsService.searchPosts(keyword);
+        return Result.success(sortPosts(postsList));
+    }
+
     private List<Posts> sortPostsList(List<Posts> postsList) {
         int j, cnt = 0;
         ArrayList<Posts> list1 = new ArrayList<>();
@@ -177,4 +188,6 @@ public class PostsController {
         postsList1.addAll(postsList2);
         return postsList1;
     }
+
+
 }

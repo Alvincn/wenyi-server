@@ -34,4 +34,7 @@ public interface PostsService extends IService<Posts> {
 
     // 根据postId获取该帖子
     Posts getPostByPostId(Integer postId);
+
+    // 关键词搜索帖子
+    List<Posts> searchPosts(String keyword);
 }

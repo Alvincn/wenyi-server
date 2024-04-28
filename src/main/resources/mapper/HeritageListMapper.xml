@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wenyi.wenyi.mapper.HeritageListMapper">
+
+    <resultMap id="BaseResultMap" type="com.wenyi.wenyi.entity.HeritageList">
+            <result property="projId" column="Proj_id" jdbcType="INTEGER"/>
+            <result property="projNum" column="Proj_num" jdbcType="VARCHAR"/>
+            <result property="nameCn" column="Name_CN" jdbcType="VARCHAR"/>
+            <result property="nameEn" column="Name_EN" jdbcType="VARCHAR"/>
+            <result property="categorycn" column="CategoryCN" jdbcType="VARCHAR"/>
+            <result property="categoryen" column="CategoryEN" jdbcType="VARCHAR"/>
+            <result property="time" column="Time" jdbcType="INTEGER"/>
+            <result property="typeCn" column="Type_CN" jdbcType="VARCHAR"/>
+            <result property="typeEn" column="Type_EN" jdbcType="VARCHAR"/>
+            <result property="placeCn" column="Place_CN" jdbcType="VARCHAR"/>
+            <result property="placeEn" column="Place_EN" jdbcType="VARCHAR"/>
+            <result property="unitCn" column="Unit_CN" jdbcType="VARCHAR"/>
+            <result property="unitEn" column="Unit_EN" jdbcType="VARCHAR"/>
+            <result property="x" column="X" jdbcType="DOUBLE"/>
+            <result property="y" column="Y" jdbcType="DOUBLE"/>
+            <result property="provincecn" column="ProvinceCN" jdbcType="VARCHAR"/>
+            <result property="provinceen" column="ProvinceEN" jdbcType="VARCHAR"/>
+            <result property="region4cn" column="Region4CN" jdbcType="VARCHAR"/>
+            <result property="region4en" column="Region4EN" jdbcType="VARCHAR"/>
+            <result property="region7cn" column="Region7CN" jdbcType="VARCHAR"/>
+            <result property="region7en" column="Region7EN" jdbcType="VARCHAR"/>
+            <result property="center" column="center" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        Proj_id,Proj_num,Name_CN,
+        Name_EN,CategoryCN,CategoryEN,
+        Time,Type_CN,Type_EN,
+        Place_CN,Place_EN,Unit_CN,
+        Unit_EN,X,Y,
+        ProvinceCN,ProvinceEN,Region4CN,
+        Region4EN,Region7CN,Region7EN,
+        center
+    </sql>
+</mapper>

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -75,6 +76,13 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
 
         return this.updateById(user);
     }
+
+    @Override
+    public List<User> findByKeyword(String keyword) {
+//        return this.list(new QueryWrapper<User>().like("username", keyword).or(new QueryWrapper<User>().like("nikename", keyword).or(new QueryWrapper<User>().like("")));
+        return null;
+    }
+
     /**
      * 清除一些不必要的属性
      */

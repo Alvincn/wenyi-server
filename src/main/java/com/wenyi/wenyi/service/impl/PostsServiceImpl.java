@@ -92,6 +92,11 @@ public class PostsServiceImpl extends ServiceImpl<PostsMapper, Posts>
         return posts;
     }
 
+    @Override
+    public List<Posts> searchPosts(String keyword) {
+        return this.list(new QueryWrapper<Posts>().like("title", keyword).or().like("description", keyword));
+    }
+
 }
 
 
