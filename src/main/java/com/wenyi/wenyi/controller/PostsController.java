@@ -8,8 +8,6 @@ import org.springframework.web.bind.annotation.*;
 import com.wenyi.wenyi.entity.Result;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -88,7 +86,7 @@ public class PostsController {
     public Result getAllPosts() {
         List<Posts> postsList = postsService.getAllPosts();
         // 筛选出所有有封面的
-        List<Posts> postsList1 = postsList.stream().filter(v -> !v.getCoverImg().isEmpty()).toList();
+        List<Posts> postsList1 = postsList.stream().filter(v -> !(v.getCoverImg() == null)).toList();
         if(!postsList1.isEmpty()) {
             return Result.success(sortPostsList(postsList));
         }else {
@@ -100,7 +98,7 @@ public class PostsController {
      * 获取用户所有的帖子
      */
     @GetMapping("/getUserPosts")
-    public Result getUserAllPosts(@RequestHeader(value = "Authorization", required = false) String token) {
+    public Result getUserAllPosts(@RequestHeader(value = "Authorization", required = false) String token, String userid) {
         if (token == null || token.isEmpty()) {
             return Result.fail(402, "用户未认证");
         }
@@ -115,6 +113,20 @@ public class PostsController {
         }
         return Result.success(postsList);
     }
+
+    @GetMapping("/getPersonPosts")
+    public Result getPersonAllPosts(Integer userId) {
+        List<Posts> postsList = postsService.getUserAllPostsByUserId(userId);
+        postsList = postsList.stream().map((item) -> {
+            item.setContent(null);
+            return item;
+        }).collect(Collectors.toList());
+        if (!postsList.isEmpty()) {
+            postsList = sortPosts(postsList);
+        }
+        return Result.success(postsList);
+    }
+
 
     /**
      * 根据帖子Id 获取该帖子
@@ -137,6 +149,16 @@ public class PostsController {
     public Result getPostByKeyword(String keyword) {
         List<Posts> postsList = postsService.searchPosts(keyword);
         return Result.success(sortPosts(postsList));
+    }
+
+    /**
+     * 获取精选帖子
+     * @return
+     */
+    @GetMapping("/getGoodPost")
+    public Result getGoodPost(){
+        List<Posts> postsList = postsService.getGoodPosts();
+        return Result.success(postsList);
     }
 
     private List<Posts> sortPostsList(List<Posts> postsList) {

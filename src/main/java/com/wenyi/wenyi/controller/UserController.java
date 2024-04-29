@@ -4,8 +4,11 @@ import com.wenyi.wenyi.entity.Result;
 import com.wenyi.wenyi.entity.User;
 import com.wenyi.wenyi.service.UserService;
 import com.wenyi.wenyi.utils.JwtUtil;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/user")
@@ -47,9 +50,6 @@ public class UserController {
      */
     @PostMapping("/login")
     public Result login(@RequestBody User user) {
-        System.out.println("login");
-        System.out.println(user.getUsername());
-        System.out.println(user.getPassword());
         User findUser = userService.findByUsername(user.getUsername());
         if(findUser == null) {
             return Result.fail(201, "用户名错误");
@@ -80,14 +80,34 @@ public class UserController {
     }
 
     /**
+     * 返回用户信息
+     */
+    @GetMapping("/getPersonInfo")
+    public Result getPersonInfo(Integer userId) {
+        User getUser = userService.findByUserId(userId);
+        if(getUser == null) {
+            return Result.fail(403, "认证失败");
+        }
+        getUser.setPassword(null);
+        return Result.success(getUser, "查找成功");
+    }
+
+    /**
      * 更新用户信息
      */
     @PostMapping("/updateInfo")
     public Result updateInfo(@RequestBody User user) {
-        System.out.println(user);
-
         Boolean result = userService.updateUserInfo(user);
         return result? Result.success(): Result.fail(204, "更新失败");
+    }
+
+    /**z
+     * 关键词搜索用户
+     */
+    @GetMapping("/searchUser")
+    public Result searchUser(String keyword) {
+        List<User> userList = userService.findByKeyword(keyword);
+        return Result.success(userList);
     }
 
 }

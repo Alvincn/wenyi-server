@@ -97,6 +97,15 @@ public class PostsServiceImpl extends ServiceImpl<PostsMapper, Posts>
         return this.list(new QueryWrapper<Posts>().like("title", keyword).or().like("description", keyword));
     }
 
+    @Override
+    public List<Posts> getGoodPosts() {
+        List<Posts> postsList = this.list(new QueryWrapper<Posts>().eq("post_status", '2').isNull("cover_img").eq("private_status", 1));
+        postsList.forEach(v -> {
+            v.setUser(userServiceImpl.getById(v.getSenderUserid()));
+        });
+        return postsList;
+    }
+
 }
 
 

@@ -37,4 +37,7 @@ public interface PostsService extends IService<Posts> {
 
     // 关键词搜索帖子
     List<Posts> searchPosts(String keyword);
+
+    // 获取精选帖子
+    List<Posts> getGoodPosts();
 }

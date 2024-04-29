@@ -15,6 +15,8 @@ import lombok.Data;
 @TableName(value ="comment")
 @Data
 public class Comment implements Serializable {
+    @TableField(exist = false)
+    private User user;
     /**
      * 评论id
      */
