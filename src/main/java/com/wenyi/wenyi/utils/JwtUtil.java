@@ -5,6 +5,7 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import com.wenyi.wenyi.entity.Roots;
 import com.wenyi.wenyi.entity.User;
 
 import java.util.Calendar;
@@ -58,6 +59,21 @@ public class JwtUtil {
 
     }
 
+    public static String sign(Roots root) {
+        Date date = new Date(System.currentTimeMillis() + EXPIRE_TIME);
+        Map<String, Object> claims = new HashMap<String, Object>();
+        claims.put("username", root.getUsername());
+        claims.put("id", root.getId());
+        // 加密算法
+        Algorithm algorithm = Algorithm.HMAC256(SECRET);
+        // 附带 id 信息
+        return JWT.create()
+                .withClaim("user", claims) //添加荷载
+                .withExpiresAt(date) // 添加获取时间
+                .sign(algorithm);
+
+    }
+
     /**
      * 解密获取id
      * @Author csb
@@ -71,5 +87,14 @@ public class JwtUtil {
         DecodedJWT jwt = verifier.verify(token);
         Map<String, Claim> claims = jwt.getClaims();
         return claims.get("user").as(User.class);
+    }
+
+    public static Roots getRootsUserNameByToken(String token) {
+        Algorithm algorithm = Algorithm.HMAC256(SECRET);
+        JWTVerifier verifier = JWT.require(algorithm).build();
+        // 验证Token，生成一个解析后的JWT对象
+        DecodedJWT jwt = verifier.verify(token);
+        Map<String, Claim> claims = jwt.getClaims();
+        return claims.get("user").as(Roots.class);
     }
 }

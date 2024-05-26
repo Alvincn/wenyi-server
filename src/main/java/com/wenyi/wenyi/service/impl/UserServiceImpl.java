@@ -73,6 +73,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         return user;
     }
 
+
     @Override
     public Boolean updateUserInfo(User user) {
 
@@ -111,6 +112,15 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
                 LinkedHashMap::new // 使用LinkedHashMap来保持插入顺序（如果需要的话）
         ));
         return new ArrayList<>(uniqueUsersById.values());
+    }
+
+    @Override
+    public List<User> findAll() {
+        List<User> list = this.list();
+        list.forEach(user -> {
+            user.setPassword(null);
+        });
+        return list;
     }
 
     /**

@@ -4,8 +4,8 @@ import com.wenyi.wenyi.entity.Result;
 import com.wenyi.wenyi.entity.User;
 import com.wenyi.wenyi.service.UserService;
 import com.wenyi.wenyi.utils.JwtUtil;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,7 +16,7 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-
+//    private UserServiceImpl userService;
     /**
      * 查找用户名是否注册过
      * @param userName 用户名
@@ -72,6 +72,7 @@ public class UserController {
         }
         User user = JwtUtil.getUserNameByToken(token);
         User getUser = userService.findByUserId(user.getId());
+
         if(getUser == null) {
             return Result.fail(403, "认证失败");
         }

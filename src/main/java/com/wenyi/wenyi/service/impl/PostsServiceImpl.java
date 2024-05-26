@@ -1,7 +1,6 @@
 package com.wenyi.wenyi.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.wenyi.wenyi.entity.Posts;
 import com.wenyi.wenyi.entity.Tags;
@@ -67,6 +66,8 @@ public class PostsServiceImpl extends ServiceImpl<PostsMapper, Posts>
         return this.list(new QueryWrapper<Posts>().eq("post_status", 2));
     }
 
+
+
     @Override
     public List<Posts> getUserAllPostsByUserId(Integer userId) {
         return this.list(new QueryWrapper<Posts>().eq("sender_userid", userId));
@@ -97,13 +98,35 @@ public class PostsServiceImpl extends ServiceImpl<PostsMapper, Posts>
         return this.list(new QueryWrapper<Posts>().like("title", keyword).or().like("description", keyword));
     }
 
+
     @Override
     public List<Posts> getGoodPosts() {
-        List<Posts> postsList = this.list(new QueryWrapper<Posts>().eq("post_status", '2').isNull("cover_img").eq("private_status", 1));
+        List<Posts> postsList = this.list(new QueryWrapper<Posts>().eq("post_status", '2').eq("cover_img", "").eq("private_status", 1));
         postsList.forEach(v -> {
             v.setUser(userServiceImpl.getById(v.getSenderUserid()));
         });
         return postsList;
+    }
+
+    @Override
+    public List<Posts> getPostsByStatus(Integer status) {
+        List<Posts> postsList;
+        if(status == null) {
+            postsList = this.list();
+        }else {
+            postsList = this.list(new QueryWrapper<Posts>().eq("post_status", status));
+        }
+        postsList.forEach(v -> {
+            v.setUser(userServiceImpl.getById(v.getSenderUserid()));
+        });
+        return postsList;
+    }
+
+    @Override
+    public Boolean updatePostStatus(Integer postId, Integer status) {
+        Posts posts = this.getById(postId);
+        posts.setPostStatus(status.toString());
+        return this.updateById(posts);
     }
 
 }

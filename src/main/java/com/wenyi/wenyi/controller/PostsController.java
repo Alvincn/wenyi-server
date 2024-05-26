@@ -2,6 +2,7 @@ package com.wenyi.wenyi.controller;
 
 import com.wenyi.wenyi.entity.*;
 import com.wenyi.wenyi.service.PostsService;
+import com.wenyi.wenyi.service.impl.PostsServiceImpl;
 import com.wenyi.wenyi.utils.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -108,9 +109,6 @@ public class PostsController {
             item.setContent(null);
             return item;
         }).collect(Collectors.toList());
-        if (!postsList.isEmpty()) {
-            postsList = sortPosts(postsList);
-        }
         return Result.success(postsList);
     }
 
@@ -121,9 +119,6 @@ public class PostsController {
             item.setContent(null);
             return item;
         }).collect(Collectors.toList());
-        if (!postsList.isEmpty()) {
-            postsList = sortPosts(postsList);
-        }
         return Result.success(postsList);
     }
 
@@ -159,6 +154,26 @@ public class PostsController {
     public Result getGoodPost(){
         List<Posts> postsList = postsService.getGoodPosts();
         return Result.success(postsList);
+    }
+
+    /**
+     * 根据状态获取列表
+     * @return
+     */
+    @GetMapping("/getPostsByStatus")
+    public Result getPostsByStatus(Integer status){
+        List<Posts> postsList = postsService.getPostsByStatus(status);
+        return Result.success(postsList);
+    }
+
+    /**
+     * 审核帖子
+     * @return
+     */
+    @GetMapping("/updatePostsStatus")
+    public Result updatePostsByStatus(Integer postId, Integer status){
+        Boolean postStatus = postsService.updatePostStatus(postId, status);
+        return postStatus? Result.success(): Result.fail(501, "审核失败");
     }
 
     private List<Posts> sortPostsList(List<Posts> postsList) {
@@ -210,6 +225,4 @@ public class PostsController {
         postsList1.addAll(postsList2);
         return postsList1;
     }
-
-
 }

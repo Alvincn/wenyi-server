@@ -42,6 +42,16 @@ public class Topics implements Serializable {
     private Date endTime;
 
     /**
+     * 封面
+     */
+    private String coverImg;
+
+    /**
+     * 搜索数量
+     */
+    private Integer watchNum;
+
+    /**
      * 参与数量
      */
     private Integer joinCount;

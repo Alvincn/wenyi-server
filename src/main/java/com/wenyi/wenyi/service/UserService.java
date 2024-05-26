@@ -26,4 +26,7 @@ public interface UserService extends IService<User> {
 
     // 搜索用户
     List<User> findByKeyword(String keyword);
+
+    // 获取用户列表
+    List<User> findAll();
 }

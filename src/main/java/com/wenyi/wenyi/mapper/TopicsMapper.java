@@ -4,6 +4,8 @@ import com.wenyi.wenyi.entity.Topics;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 /**
 * @author 22895
 * @description 针对表【topics】的数据库操作Mapper
@@ -13,6 +15,7 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface TopicsMapper extends BaseMapper<Topics> {
 
+    List<Topics> getHeatTopics();
 }
 
 

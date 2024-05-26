@@ -3,24 +3,25 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.wenyi.wenyi.mapper.UserMapper">
-
     <resultMap id="BaseResultMap" type="com.wenyi.wenyi.entity.User">
-            <id property="id" column="id" jdbcType="INTEGER"/>
-            <result property="username" column="username" jdbcType="VARCHAR"/>
-            <result property="password" column="password" jdbcType="VARCHAR"/>
-            <result property="location" column="location" jdbcType="VARCHAR"/>
-            <result property="email" column="email" jdbcType="VARCHAR"/>
-            <result property="avatar" column="avatar" jdbcType="VARCHAR"/>
-            <result property="registerTime" column="register_time" jdbcType="DATE"/>
-            <result property="gender" column="gender" jdbcType="CHAR"/>
-            <result property="birthday" column="birthday" jdbcType="DATE"/>
-            <result property="nickname" column="nickName" jdbcType="VARCHAR"/>
+        <id property="id" column="id" jdbcType="INTEGER"/>
+        <result property="username" column="username" jdbcType="VARCHAR"/>
+        <result property="password" column="password" jdbcType="VARCHAR"/>
+        <result property="location" column="location" jdbcType="VARCHAR"/>
+        <result property="email" column="email" jdbcType="VARCHAR"/>
+        <result property="avatar" column="avatar" jdbcType="VARCHAR"/>
+        <result property="registerTime" column="register_time" jdbcType="DATE"/>
+        <result property="gender" column="gender" jdbcType="CHAR"/>
+        <result property="birthday" column="birthday" jdbcType="DATE"/>
+        <result property="nickname" column="nickName" jdbcType="VARCHAR"/>
+        <result property="schoolId" column="school_id" jdbcType="VARCHAR"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-        id,username,password,
-        location,email,avatar,
-        register_time,gender,birthday,
-        nickName
+        id
+        ,username,password,
+location,email,avatar,
+register_time,gender,birthday,
+nickName,school_id
     </sql>
 </mapper>

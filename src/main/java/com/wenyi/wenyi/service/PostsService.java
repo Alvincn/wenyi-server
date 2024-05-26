@@ -40,4 +40,10 @@ public interface PostsService extends IService<Posts> {
 
     // 获取精选帖子
     List<Posts> getGoodPosts();
+
+    // 根据状态获取帖子
+    List<Posts> getPostsByStatus(Integer status);
+
+    // 通过审核
+    Boolean updatePostStatus(Integer postId, Integer status);
 }

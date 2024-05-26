@@ -21,4 +21,5 @@
         start_time,end_time,join_count,
         heat,search_number,state
     </sql>
+    <select id="getHeatTopics" resultType="com.wenyi.wenyi.entity.Topics">SELECT * FROM topics_with_heat ORDER BY heat DESC </select>
 </mapper>
